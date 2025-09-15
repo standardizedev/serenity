@@ -1,0 +1,5 @@
+{
+  "name": "Component Forge",
+  "description": "An isolated environment for developing and testing UI components, grouped into Design Systems.",
+  "requestFramePermissions": []
+}
