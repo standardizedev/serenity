@@ -17,7 +17,7 @@ interface AppContextType extends AppState {
   availableSystems: string[];
   currentStoryData: Story | null;
   toggleTheme: () => void;
-  selectSystem: (system: string) => void;
+  selectSystem: (systemName: string) => void;
   selectComponentStory: (component: string, story: string) => void;
   updateProp: (propName: string, value: any) => void;
   logAction: (actionName: string, ...args: any[]) => void;
@@ -26,19 +26,16 @@ interface AppContextType extends AppState {
 
 const AppStateContext = createContext<AppContextType | undefined>(undefined);
 
-const initialSystem = Object.keys(designSystems)[0];
-
 export const AppStateProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const availableSystems = useMemo(() => Object.keys(designSystems), []);
   const [state, setState] = useState<AppState>({
     theme: 'dark',
-    selectedSystem: initialSystem,
+    selectedSystem: availableSystems[0] || '',
     selectedComponent: null,
     selectedStory: null,
     props: {},
     actions: [],
   });
-
-  const availableSystems = useMemo(() => Object.keys(designSystems), []);
 
   const toggleTheme = useCallback(() => {
     setState(prevState => ({
@@ -47,16 +44,18 @@ export const AppStateProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }));
   }, []);
 
-  const selectSystem = useCallback((system: string) => {
-    setState(prevState => ({
-      ...prevState,
-      selectedSystem: system,
-      selectedComponent: null,
-      selectedStory: null,
-      props: {},
-      actions: [],
-    }));
-  }, []);
+  const selectSystem = useCallback((systemName: string) => {
+    if (availableSystems.includes(systemName)) {
+      setState(prevState => ({
+        ...prevState,
+        selectedSystem: systemName,
+        selectedComponent: null,
+        selectedStory: null,
+        props: {},
+        actions: [],
+      }));
+    }
+  }, [availableSystems]);
 
   const selectComponentStory = useCallback((component: string, story: string) => {
     const storyData = designSystems[state.selectedSystem]?.components[component]?.[story];

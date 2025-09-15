@@ -6,6 +6,14 @@ const Sidebar: React.FC = () => {
   const { selectedSystem, selectedComponent, selectedStory, selectComponentStory } = useAppState();
   const currentSystem = designSystems[selectedSystem];
 
+  if (!currentSystem) {
+    return (
+      <aside className="w-64 bg-gray-50 dark:bg-gray-800/50 border-r border-gray-200 dark:border-gray-700 p-4 overflow-y-auto flex-shrink-0">
+        <p className="text-gray-500">Select a design system.</p>
+      </aside>
+    );
+  }
+
   return (
     <aside className="w-64 bg-gray-50 dark:bg-gray-800/50 border-r border-gray-200 dark:border-gray-700 p-4 overflow-y-auto flex-shrink-0">
       <nav>

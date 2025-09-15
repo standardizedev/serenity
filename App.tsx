@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { AppStateProvider, useAppState } from './context/AppStateContext';
-import Header from './app-layout/Header';
 import Sidebar from './app-layout/Sidebar';
 import MainView from './app-layout/MainView';
 
@@ -14,9 +13,8 @@ const ThemedApp: React.FC = () => {
   }, [theme]);
 
   return (
-    <div className="flex flex-col h-screen font-sans bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      <Header />
-      <div className="flex flex-1 overflow-hidden">
+    <div className="h-screen font-sans bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <div className="flex h-full overflow-hidden">
         <Sidebar />
         <MainView />
       </div>
