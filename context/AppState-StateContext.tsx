@@ -44,13 +44,16 @@ export const AppStateProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     root.classList.toggle('dark', isDark);
 
     // Update tailwind colors for theme switching
+    // FIX: Cast window to `any` to access the `tailwind` object injected by the CDN script.
     const twConfig = (window as any).tailwind.config.theme.extend.colors;
     if (isDark) {
+        twConfig.background = twConfig.stone[900];
         twConfig.surface = twConfig.stone[800];
         twConfig.border = twConfig.stone[600];
         twConfig['text-primary'] = twConfig.sand[100];
         twConfig['text-secondary'] = twConfig.stone[400];
     } else {
+        twConfig.background = twConfig.stone[100];
         twConfig.surface = '#ffffff';
         twConfig.border = twConfig.sand[200];
         twConfig['text-primary'] = twConfig.stone[900];

@@ -4,7 +4,9 @@ import SunIcon from '../components/icons/SunIcon';
 import MoonIcon from '../components/icons/MoonIcon';
 
 const Header: React.FC = () => {
-  const { availableSystems, selectedSystem, selectSystem, theme, toggleTheme } = useAppState();
+  // FIX: Destructure only `theme` and `toggleTheme` which are now available in the context.
+  // Properties related to multi-design-system support have been removed from the context.
+  const { theme, toggleTheme } = useAppState();
 
   return (
     <header className="flex items-center justify-between px-4 py-2 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-md">
@@ -15,17 +17,7 @@ const Header: React.FC = () => {
         <h1 className="text-xl font-bold text-gray-800 dark:text-gray-100">Component Forge</h1>
       </div>
       <div className="flex items-center gap-4">
-        <select
-          value={selectedSystem}
-          onChange={(e) => selectSystem(e.target.value)}
-          className="bg-gray-200 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1.5 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {availableSystems.map((system) => (
-            <option key={system} value={system}>
-              {system}
-            </option>
-          ))}
-        </select>
+        {/* FIX: Remove the design system selector as it is no longer supported in the app state. */}
         <button
           onClick={toggleTheme}
           className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
